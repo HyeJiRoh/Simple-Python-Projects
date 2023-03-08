@@ -1,28 +1,12 @@
-import random
+import socket
+import requests
+import re
 
-num = random.randint(1, 100)
-count = 1
+in_addr = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+in_addr.connect(("www.google.co.kr", 443))
 
-print("==================GAME START==================")
+print("내부 IP:", in_addr.getsockname()[0])
 
-while True:
-    try:
-        print()
-        my_number = int(input("1~100까지의 숫자를 입력하세요 : "))
-
-        if my_number > num:
-            print("입력하신 숫자보다 작습니다.")
-        elif my_number < num:
-            print("입력하신 숫자보다 큽니다.")
-        else:
-            print()
-            print("⭐️정답입니다!⭐️")
-            print("당신은 %d번만에 맞추셨습니다."%count)
-            print()
-            print("===================GAME END===================")
-            break
-
-        count += 1
-
-    except:
-        print("에러가 발생했습니다. 정수만 입력 가능합니다.")
+req = requests.get("http://ipconfig.kr")
+out_addr = re.search(r'IP Address : (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', req.text)[1]
+print("외부 IP:", out_addr)
