@@ -3,7 +3,6 @@ import os
 from gtts import gTTS
 from playsound import playsound
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 file_path = '입력된 소개.txt'
 
 with open(file_path, 'rt', encoding='UTF8') as f:
@@ -12,3 +11,4 @@ with open(file_path, 'rt', encoding='UTF8') as f:
 tts = gTTS(text = read_file, lang = 'ko')
 
 tts.save(r"test.mp3")
+playsound("test.mp3")
